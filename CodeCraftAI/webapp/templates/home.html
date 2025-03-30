@@ -1,5 +1,42 @@
 {% extends 'base.html'%} {% block content %}
 
 <h1>Hello Django!!!</h1>
+<pre>
+<code class='line-numbers language-js'>
+if name == 'amen': 
+    print('Hello Amen') 
+else: 
+    print('Hello Friend')
+</code>
+</pre>
+
+<br /><br />
+{% csrf_token %}
+
+<form method="POST" action="{% url 'home' %}">
+  <div class="mb-3">
+    <textarea
+      class="form-control"
+      name="code"
+      placeholder="Fix Your Code with CODE Craft A.I"
+      rows="3"
+    ></textarea>
+  </div>
+  <br />
+  <select
+    class="form-select form-select-md"
+    aria-label=".form-select-sm example"
+  >
+    <option selected>Select Programming Language</option>
+    <option value="1">One</option>
+    <option value="2">Two</option>
+    <option value="3">Three</option>
+  </select>
+  <br />
+
+  <div class="col-auto">
+    <button type="submit" class="btn btn-secondary mb-3">Submit</button>
+  </div>
+</form>
 
 {% endblock %}
