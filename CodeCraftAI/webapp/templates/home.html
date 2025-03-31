@@ -1,6 +1,43 @@
-{% extends 'base.html'%} {% block content %}
+{% extends 'base.html'%} 
 
-<h1>Hello Django!!!</h1>
+{% block content %} 
+
+
+{% if code %}
+<pre>  
+  <code class='line-numbers language-{{language}}'>
+    {{code}}
+
+  </code>
+</pre>
+
+<br /><br />
+
+
+
+<form method="POST" action="{% url 'home' %}">
+  {% csrf_token %}
+  <div class="mb-3">
+    <textarea class="form-control" name="code" placeholder="Fix Your Code with CODE Craft A.I" rows="3">{{ code }}</textarea>
+  </div>
+  <br />
+
+  <select class="form-select form-select-md" name="language">
+    <option selected>Select Programming Language</option>
+    {% for language in language_list %}
+    <option value="{{ language }}">{{ language }}</option>
+    {% endfor %}
+  </select>
+  <br /> <br />
+
+  
+    <button type="submit" class="btn btn-secondary mb-3">Submit</button>
+</form>
+<br/>
+
+
+{% else %}
+
 <pre>
 <code class='line-numbers language-js'>
 if name == 'amen': 
@@ -11,9 +48,9 @@ else:
 </pre>
 
 <br /><br />
-{% csrf_token %}
 
 <form method="POST" action="{% url 'home' %}">
+  {% csrf_token %}
   <div class="mb-3">
     <textarea
       class="form-control"
@@ -23,10 +60,7 @@ else:
     ></textarea>
   </div>
   <br />
-  <select
-    class="form-select form-select-md"
-    aria-label=".form-select-sm example"
-  >
+  <select class="form-select form-select-md" name="language">
     <option selected>Select Programming Language</option>
     {% for language in language_list %}
     <option value="{{ language }}">{{ language }}</option>
@@ -34,9 +68,8 @@ else:
   </select>
   <br />
 
-  <div class="col-auto">
     <button type="submit" class="btn btn-secondary mb-3">Submit</button>
-  </div>
+
 </form>
 
-{% endblock %}
+{% endif %} {% endblock %}

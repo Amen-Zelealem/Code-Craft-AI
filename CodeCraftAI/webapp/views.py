@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib import messages
 
 
 def home(request):
@@ -23,5 +24,20 @@ def home(request):
         "php",
         "powershell",
     ]
-    # print(sorted(language_list))
-    return render(request, "home.html", {'language_list':language_list})
+    if request.method == "POST":
+        code = request.POST.get("code", "")
+        language = request.POST.get("language", "")
+
+        if language == "Select Programming Language":
+            messages.success(request, "Please Pick a Programming Language")
+        return render(
+            request,
+            "home.html",
+            {"language_list": language_list, "code": code, "language": language},
+        )
+
+    return render(
+        request,
+        "home.html",
+        {"language_list": language_list, "code": code, "language": language},
+    )
