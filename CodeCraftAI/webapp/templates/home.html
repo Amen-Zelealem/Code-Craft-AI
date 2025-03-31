@@ -28,9 +28,9 @@ else:
     aria-label=".form-select-sm example"
   >
     <option selected>Select Programming Language</option>
-    <option value="1">One</option>
-    <option value="2">Two</option>
-    <option value="3">Three</option>
+    {% for language in language_list %}
+    <option value="{{ language }}">{{ language }}</option>
+    {% endfor %}
   </select>
   <br />
 
