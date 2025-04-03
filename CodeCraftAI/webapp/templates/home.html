@@ -1,75 +1,55 @@
-{% extends 'base.html'%} 
+{% extends 'base.html' %}
 
-{% block content %} 
+{% block content %}
+<div class="container mt-5">
+  <div class="card shadow-lg p-4">
+    <h2 class="text-center mb-4">CODE Craft A.I - Fix Your Code</h2>
+    
+    {% if fixed_code %}
+    <div class="alert alert-success" role="alert">
+      <h5 class="text-center">Your Fixed Code:</h5>
+    </div>
+    <div class="card bg-dark text-white mb-4">
+      <div class="card-body p-0">
+        <pre class="m-0"><code class="line-numbers language-{{ language }}">{{ fixed_code }}</code></pre>
+      </div>
+    </div>
+    {% endif %}
 
+    <form method="POST" action="{% url 'home' %}">
+      {% csrf_token %}
+      <div class="mb-3">
+        <textarea class="form-control" name="code" placeholder="Paste your code here..." rows="5">{{ code }}</textarea>
+      </div>
+      <br />
 
-{% if code %}
-<pre>  
-  <code class='line-numbers language-{{language}}'>
-    {{code}}
-
-  </code>
-</pre>
-
-<br /><br />
-
-
-
-<form method="POST" action="{% url 'home' %}">
-  {% csrf_token %}
-  <div class="mb-3">
-    <textarea class="form-control" name="code" placeholder="Fix Your Code with CODE Craft A.I" rows="3">{{ code }}</textarea>
+      <select class="form-select form-select-md" name="language" required>
+        <option value="" disabled selected>Select Programming Language</option>
+        {% for language in language_list %}
+        <option value="{{ language }}" {% if language == selected_language %}selected{% endif %}>{{ language|title }}</option>
+        {% endfor %}
+      </select>
+      <br />
+      
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary btn-lg">Fix My Code</button>
+      </div>
+    </form>
   </div>
-  <br />
 
-  <select class="form-select form-select-md" name="language">
-    <option selected>Select Programming Language</option>
-    {% for language in language_list %}
-    <option value="{{ language }}">{{ language }}</option>
-    {% endfor %}
-  </select>
-  <br /> <br />
-
-  
-    <button type="submit" class="btn btn-secondary mb-3">Submit</button>
-</form>
-<br/>
-
-
-{% else %}
-
-<pre>
-<code class='line-numbers language-js'>
+  {% if not fixed_code %}
+  <div class="mt-5 text-center">
+    <h5>Try an Example:</h5>
+    <div class="card bg-light text-dark border">
+      <div class="card-body p-0">
+        <pre class="m-0"><code class="line-numbers language-python">
 if name == 'amen': 
     print('Hello Amen') 
 else: 
-    print('Hello Friend')
-</code>
-</pre>
-
-<br /><br />
-
-<form method="POST" action="{% url 'home' %}">
-  {% csrf_token %}
-  <div class="mb-3">
-    <textarea
-      class="form-control"
-      name="code"
-      placeholder="Fix Your Code with CODE Craft A.I"
-      rows="3"
-    ></textarea>
+    print('Hello Friend')</code></pre>
+      </div>
+    </div>
   </div>
-  <br />
-  <select class="form-select form-select-md" name="language">
-    <option selected>Select Programming Language</option>
-    {% for language in language_list %}
-    <option value="{{ language }}">{{ language }}</option>
-    {% endfor %}
-  </select>
-  <br />
-
-    <button type="submit" class="btn btn-secondary mb-3">Submit</button>
-
-</form>
-
-{% endif %} {% endblock %}
+  {% endif %}
+</div>
+{% endblock %}
