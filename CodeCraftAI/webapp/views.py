@@ -7,6 +7,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from huggingface_hub import User
 from .forms import SignUpForm
+from .models import Code
+
 
 load_dotenv()
 
@@ -66,7 +68,14 @@ def home(request):
             # Clean up the response
             fixed_code = fixed_code.strip().replace("```", "").strip()
             context["fixed_code"] = fixed_code
-
+            # Save to Database
+            record = Code(
+                question=code,
+                code_answer=fixed_code,
+                language=language,
+                user=request.user,
+            )
+            record.save()
         except Exception as e:
             messages.error(request, f"An error occurred: {str(e)}")
             context["fixed_code"] = f"Error: {str(e)}"
@@ -146,8 +155,23 @@ def suggest(request):
             if intent in ["complete", "optimize"]:
                 result = result.strip().replace("```", "").strip()
                 context["suggested_code"] = result
+                 # Save to Database
+                record = Code(
+                    question=code,
+                    code_answer=result,
+                    language=language,
+                    user=request.user,
+                )
+                record.save()
             else:
                 context["explanation"] = result
+                record = Code(
+                    question=code,
+                    code_answer=result,
+                    language=language,
+                    user=request.user,
+                )
+                record.save()
 
         except Exception as e:
             messages.error(request, f"An error occurred: {str(e)}")
