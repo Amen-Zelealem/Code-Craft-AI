@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div class="card shadow-sm p-4" style="width: 100%; max-width: 500px;">
+    <h1 class="text-center mb-4">Register</h1>
+    
+    <form method="POST" action="{% url 'register' %}">
+      {% csrf_token %}
+      
+      {% if form.errors %}
+      <div class="alert alert-danger mb-4">
+        <strong>Registration Error</strong>
+        <ul class="mb-0 mt-2 ps-3">
+          {% for field in form %}
+            {% for error in field.errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+
+      <div class="form-group mb-3">
+        <label class="form-label">Username</label>
+        {{ form.username }}
+        <small class="form-text text-muted">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</small>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 form-group mb-3">
+          <label class="form-label">First name</label>
+          {{ form.first_name }}
+        </div>
+        <div class="col-md-6 form-group mb-3">
+          <label class="form-label">Last name</label>
+          {{ form.last_name }}
+        </div>
+      </div>
+
+      <div class="form-group mb-3">
+        <label class="form-label">Email address</label>
+        {{ form.email }}
+      </div>
+
+      <div class="form-group mb-3">
+        <label class="form-label">Password</label>
+        {{ form.password1 }}
+        <ul class="form-text text-muted small ps-3 mb-0">
+          <li>Your password can't be too similar to your other personal information.</li>
+          <li>Your password must contain at least 8 characters.</li>
+          <li>Your password can't be a commonly used password.</li>
+          <li>Your password can't be entirely numeric.</li>
+        </ul>
+      </div>
+
+      <div class="form-group mb-4">
+        <label class="form-label">Confirm password</label>
+        {{ form.password2 }}
+        <small class="form-text text-muted">Enter the same password as before, for verification.</small>
+      </div>
+
+      <div class="d-grid">
+        <button type="submit" class="btn btn-primary">Register</button>
+      </div>
+      
+      <div class="text-center mt-3">
+        <small>Already have an account? <a href="{% url 'login' %}" class="text-decoration-none">Login</a></small>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
