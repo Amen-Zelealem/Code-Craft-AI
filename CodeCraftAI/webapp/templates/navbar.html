@@ -1,42 +1,63 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">Code Craft AI</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+<nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(135deg, #2c3e50, #4a6491);">
+  <div class="container">
+    <a class="navbar-brand fw-bold text-white" href="/">
+      <i class="fas fa-code me-2"></i>
+      CodeCraft AI
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" href="{% url 'home' %}">Fix</a>
+        <li class="nav-item mx-1">
+          <a class="nav-link text-white px-3 py-2" href="{% url 'home' %}">
+            <i class="fas fa-magic me-1"></i> Fix Code
+          </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'suggest' %}">Suggest</a>
+        <li class="nav-item mx-1">
+          <a class="nav-link text-white px-3 py-2" href="{% url 'suggest' %}">
+            <i class="fas fa-lightbulb me-1"></i> Suggestions
+          </a>
         </li>
+      </ul>
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         {% if user.is_authenticated %}
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+        <li class="nav-item mx-1">
+          <a class="nav-link text-white px-3 py-2" href="{% url 'logout' %}">
+            <i class="fas fa-sign-out-alt me-1"></i> Logout
+          </a>
         </li>
         {% else %}
-
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'register' %}">Register</a>
+        <li class="nav-item mx-1">
+          <a class="nav-link text-white px-3 py-2" href="{% url 'register' %}">
+            <i class="fas fa-user-plus me-1"></i> Register
+          </a>
         </li>
-
-        
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'login' %}">Login</a>
+        <li class="nav-item mx-1">
+          <a class="nav-link text-white px-3 py-2" href="{% url 'login' %}">
+            <i class="fas fa-sign-in-alt me-1"></i> Login
+          </a>
         </li>
-
         {% endif %}
       </ul>
     </div>
   </div>
 </nav>
+
+<style>
+  .navbar {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  .nav-link {
+    transition: all 0.3s ease;
+    border-radius: 4px;
+  }
+  .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+  }
+  .nav-link.active {
+    background-color: rgba(255, 255, 255, 0.3);
+    font-weight: 500;
+  }
+</style>
