@@ -1,0 +1,21 @@
+{% extends 'base.html' %} {% block content %}
+
+{% if code %}
+
+    {% for pastcodes in code %}
+    {{ pastcodes.question }}<br/>
+
+    <pre>
+<code class="line-numbers language-{{pastcodes.language}}">
+    {{ pastcodes.code_answer }}
+</code>
+    </pre>
+      <a href="{% url 'delete_past_code' pastcodes.id %}" class="btn btn-outline-danger btn-sm">
+        <i class="fas fa-trash-alt"></i> Delete
+      </a>
+        <br/>
+    
+    {% endfor %}
+{% endif %}
+
+{% endblock %}

@@ -155,7 +155,7 @@ def suggest(request):
             if intent in ["complete", "optimize"]:
                 result = result.strip().replace("```", "").strip()
                 context["suggested_code"] = result
-                 # Save to Database
+                # Save to Database
                 record = Code(
                     question=code,
                     code_answer=result,
@@ -216,3 +216,14 @@ def register_user(request):
     else:
         form = SignUpForm()
     return render(request, "register.html", {"form": form})
+
+
+def past(request):
+    code = Code.objects.filter(user_id=request.user.id)
+    return render(request, "past.html", {"code": code})
+
+def delete_past_code(request,Past_id):
+    past = Code.objects.get(pk=Past_id)
+    past.delete()
+    messages.success(request, "Deleted Successfully!")
+    return redirect("past")
