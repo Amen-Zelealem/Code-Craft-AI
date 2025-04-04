@@ -26,7 +26,9 @@ SECRET_KEY = "django-insecure-pi5knyqt_hphk&vriqrw!s5nwuj6^cvpq3^fm9wci*&=3jdm@a
 DEBUG = True
 
 ALLOWED_HOSTS = ["code-craft-ai.onrender.com"]
-
+CSRF_TRUSTED_ORIGINS = [
+    'https://code-craft-ai.onrender.com',
+]
 
 # Application definition
 
