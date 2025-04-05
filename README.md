@@ -82,7 +82,7 @@ Supports multiple programming languages including:
 
    - Logout (`/logout/`)
 
-     - Method: `GET`
+     - Method: `POST`
      - Purpose: User session termination
 
    - Register (`/register/`)
@@ -102,7 +102,7 @@ Supports multiple programming languages including:
      - Language-specific formatting
 
 2. **Delete Past Code** (`/delete_past_codes/<Past_id>`)
-   - Method: `GET`
+   - Method: `POST`
    - Purpose: Remove specific code entries
    - Parameter: Past_id (Code entry identifier)
 
