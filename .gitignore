@@ -11,4 +11,5 @@ __pycache__
 # ========================
 # Environmental Variable
 # ========================
-.env
+config.bat
+node_modules
